@@ -3,14 +3,14 @@ import styled from 'styled-components';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setData } from 'store/actions/index.js';
+import { setCustomData } from 'store/actions/index.js';
 import { themeGet } from 'themes/';
 
-import TestImage from './assets/loading.gif';
+import Example from 'scenes/example';
 
 require('themes/app.scss');
 
-const AppHTML = styled.section`
+const $App = styled.section`
   position:absolute;
   left:0;
   top:0;
@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   setDefaultData(){
-    this.props.setData({
+    this.props.setCustomData({
       title: 'testing'
     });
   }
@@ -48,7 +48,7 @@ class App extends Component {
                     }) //- bad url responds with 200/ok? so this doesnt get thrown
               .then(json => {
                       console.log('data was read successfully')
-                      this.props.setData(json);
+                      this.props.setCustomData(json);
                       // this.setDefaultData();
                       return true;
                     }, 
@@ -60,22 +60,21 @@ class App extends Component {
 
   render(){
     return(
-      <AppHTML id="app" tabIndex="-1">
-        <h1>{ this.props.title || 'Loading..' }</h1>
-        <img src={TestImage} alt="loading"/>
-      </AppHTML>
+      <$App id="app" >
+        <h1>{ this.props.loaded ? 'Loaded' : 'Loading...' }</h1>
+        <Example />
+      </$App>
     );
   }
 }
 
-const mapStateToProps = ({ data }) => ({
-  loaded: data.slideIdx,
-  title: data.title
+const mapStateToProps = (state) => ({
+  loaded: state.data.loaded
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { setData },
+    { setCustomData },
     dispatch
   )
 

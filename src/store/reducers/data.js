@@ -1,44 +1,53 @@
 import { 
-  SET_DATA
+  setCustomData,
+  setActiveType
 } from '../actions';
-import { SET_TRANSITION } from '../actions/transition';
+import { setTransition } from '../actions/transition';
 
-//- initialState data is overwritten from an external json file in public/data.json
-const ALLOWED_STORED_FIELDS = [ 'title' ];
+import { handleActions } from 'redux-actions';
+
+//- customData in store is from an external json file at public/data.json
+const VALID_KEYS = [ 'customTitle', 'customValue', 'customArray', 'customObjects' ];
+const RESTRICT_KEYS = false;
  
 const initialState = {
   loaded: false,
-  title: 'loading'
+  title: 'loading',
+  customData: null
 }
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case SET_DATA:{
-      const cleanObj = {};
-      const parsedData = action.payload;
-      for(let key in parsedData){
-        if(ALLOWED_STORED_FIELDS.indexOf(key) === -1){
-          console.error(`stored dataField "${key}" is not a valid key`);
-        }else{
-          cleanObj[key] = parsedData[key];
-        }
+export default handleActions({
+  [setCustomData.toString()]: (state, action) => {
+    const cleanObj = {};
+    const parsedData = action.payload;
+    for(let key in parsedData){
+      if(VALID_KEYS.indexOf(key) === -1){
+        console.warn(`key supplied in /data.json "${key}" is not a valid key`);
+        if(!RESTRICT_KEYS) cleanObj[key] = parsedData[key];
       }
-
-      return {
-        ...state,
-        ...cleanObj,
-        loaded: true
+      else{
+        cleanObj[key] = parsedData[key];
       }
     }
 
-    case SET_TRANSITION:{
-      return {
-        ...state,
-        transitionLabel: action.payload.label
-      }
+    return {
+      ...state,
+      customData: cleanObj,
+      loaded: true
     }
+  },
 
-    default:
-      return state
+  [setTransition.toString()]: (state, action) => {
+    return {
+      ...state,
+      transitionLabel: action.payload.label
+    }
+  },
+
+  [setActiveType.toString()]: (state, action) => {
+    return {
+      ...state,
+      activeType: action.payload
+    }
   }
-}
+}, initialState);

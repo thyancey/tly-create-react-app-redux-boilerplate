@@ -1,3 +1,16 @@
+import { createAction } from 'redux-actions';
+
+export const setTransitionAction = createAction('SET_TRANSITION');
+
+export const setTransition = (transitionData) => {
+  return dispatch => {
+    dispatch({
+      type: setTransitionAction,
+      payload: transitionData
+    });
+  }
+};
+
 export const CHAIN_ACTIONS = 'CHAIN_ACTIONS';
 export const chainActions = (actionInstructions) => {
   return dispatch => {
@@ -18,18 +31,6 @@ export const executeInstructions = (actionInstructions, dispatch) => {
   }, actionInstructions[0].delay || 0);
 }
 
-
-
-//- example transition action
-export const SET_TRANSITION = 'SET_TRANSITION';
-export const setTransition = (transitionData) => {
-  return dispatch => {
-    dispatch({
-      type: SET_TRANSITION,
-      payload: transitionData
-    });
-  }
-}
 
 export const slideTransition = (action, payload, dispatch) => {
   chainActions([

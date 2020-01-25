@@ -1,9 +1,5 @@
-export const SET_DATA = 'SET_DATA';
-export const setData = (data) => {
-  return dispatch => {
-    dispatch({
-      type: SET_DATA,
-      payload: data
-    });
-  }
-}
+import { createAction } from 'redux-actions';
+
+
+export const setCustomData = createAction('SET_CUSTOM_DATA');
+export const setActiveType = createAction('SET_ACTIVE_TYPE');
