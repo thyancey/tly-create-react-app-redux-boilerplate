@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 
 export const getCustomData = state => state.data.customData || {};
 export const getActiveType = state => state.data.activeType || null;
+export const getCounter = state => state.data.counter;
 
 
 export const selectCustomLabels = createSelector(

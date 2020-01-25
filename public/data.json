@@ -1,27 +1,27 @@
 {
-  "customTitle": "custom Title",
+  "customTitle": "Animals",
   "customValue": 300,
   "customArray": [ "rodent", "bug", "dinosaur" ],
   "customObjects": [
     {
       "type": "dinosaur",
       "animal": "allosaurus",
-      "name": "ally"
+      "name": "Ally"
     },
     {
       "type": "rodent",
       "animal": "beaver",
-      "name": "billy"
+      "name": "Billy"
     },
     {
       "type": "rodent",
       "animal": "capybara",
-      "name": "cathy"
+      "name": "Cathy"
     },
     {
       "type": "rodent",
       "animal": "degu",
-      "name": "denny"
+      "name": "Denny"
     }
   ]
 }
