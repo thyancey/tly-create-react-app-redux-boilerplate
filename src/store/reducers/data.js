@@ -1,6 +1,8 @@
 import { 
   setCustomData,
-  setActiveType
+  setActiveType,
+  incrementCounter,
+  decrementCounter
 } from '../actions';
 import { setTransition } from '../actions/transition';
 
@@ -13,7 +15,8 @@ const RESTRICT_KEYS = false;
 const initialState = {
   loaded: false,
   title: 'loading',
-  customData: null
+  customData: null,
+  counter: 0
 }
 
 export default handleActions({
@@ -48,6 +51,21 @@ export default handleActions({
     return {
       ...state,
       activeType: action.payload
+    }
+  },
+
+  [incrementCounter.toString()]: (state, action) => {
+    console.log('ICREMEMRM')
+    return {
+      ...state,
+      counter: state.counter + 1
+    }
+  },
+
+  [decrementCounter.toString()]: (state, action) => {
+    return {
+      ...state,
+      counter: state.counter - 1
     }
   }
 }, initialState);
